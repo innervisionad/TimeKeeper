@@ -54,10 +54,7 @@ namespace TimeKeeper.Controllers
 
                 if (project != null)
                 {
-                    EntityToDTO etd = new EntityToDTO();
-                    var dto = etd.ProjectEntityToDTO(project);
-
-                    return Request.CreateResponse(HttpStatusCode.OK, dto);
+                    return Request.CreateResponse(HttpStatusCode.OK, project);
                 }
                 else
                 {
