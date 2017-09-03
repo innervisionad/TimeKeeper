@@ -1,0 +1,72 @@
+﻿@using System.Web.Optimization;
+@{
+    var environmentStr = System.Web.Configuration.WebConfigurationManager.AppSettings["Environment"];
+}
+
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Keeper</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+
+    <script type="text/javascript" src="~/scripts/jquery-3.1.1.min.js"></script>
+    @*<script type="text/javascript" src="~/scripts/moment.min.js"></script>*@
+    <script type="text/javascript" src="~/scripts/bootstrap.min.js"></script>
+    @*<script type="text/javascript" src="~/scripts/bootstrap-datetimepicker.js"></script>*@
+    @*<link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />*@
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+    <script src="~/Scripts/angular-moment-picker.min.js"></script>
+    <link href="~/Scripts/angular-moment-picker.min.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
+
+
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @if (Request.ApplicationPath != "/")
+    {
+        <link id="BaseUrl" href="@Request.ApplicationPath/" />
+        <base href="@Request.ApplicationPath/">
+    }
+    else
+    {
+        <link id="BaseUrl" href="" />
+        <base href="/">
+    }
+</head>
+<body class="@(environmentStr != null ? @environmentStr : null)">
+    <div ng-include="'Scripts/App/Views/nav.html'"></div>
+
+    <div class="container-fluid body-content">
+        @RenderBody()
+    </div>
+
+    <div class="footer">
+        <div class="container-fluid">
+            @*
+                <p class="copyright">Tribeca Server Monitor &copy; @DateTime.Now.Year - Tribeca FS LLP - Build date: @VersionInfo.GetAssemblyLastUpdate(AssemblyInfo.GetWebUIAssembly()).ToString()</p>
+            *@
+            <div id="ajax-throbber-footer" tfs-ajax-throbber>
+                @*<img src="~/Content/images/spinner-small.gif" />
+                    <div class="loading-text">Processing</div>*@
+            </div>
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

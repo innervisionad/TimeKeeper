@@ -1,0 +1,10 @@
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\TimeKeeper.Domain.dll.config
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\TimeKeeper.Domain.dll
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\TimeKeeper.Domain.pdb
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\EntityFramework.dll
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\EntityFramework.xml
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\obj\Debug\TimeKeeper.Domain.csprojResolveAssemblyReference.cache
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\obj\Debug\TimeKeeper.Domain.dll
+C:\Users\inner\Desktop\WebSites\TimeKeeper\TimeKeeper\TimeKeeper.Domain\obj\Debug\TimeKeeper.Domain.pdb

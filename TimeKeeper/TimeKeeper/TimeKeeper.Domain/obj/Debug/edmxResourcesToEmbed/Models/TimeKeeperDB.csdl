@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TimeKeeperModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TimeKeeperEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Projects" EntityType="TimeKeeperModel.Project" />
+    <EntitySet Name="ProjectOwners" EntityType="TimeKeeperModel.ProjectOwner" />
+    <EntitySet Name="Times" EntityType="TimeKeeperModel.Time" />
+    <AssociationSet Name="FK_ProjectOwner_Project" Association="TimeKeeperModel.FK_ProjectOwner_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="ProjectOwner" EntitySet="ProjectOwners" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Time_Project" Association="TimeKeeperModel.FK_Time_Project">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="Time" EntitySet="Times" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProjectDescription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Invoiced" Type="Boolean" />
+    <NavigationProperty Name="ProjectOwners" Relationship="TimeKeeperModel.FK_ProjectOwner_Project" FromRole="Project" ToRole="ProjectOwner" />
+    <NavigationProperty Name="Times" Relationship="TimeKeeperModel.FK_Time_Project" FromRole="Project" ToRole="Time" />
+  </EntityType>
+  <EntityType Name="ProjectOwner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AddressLine2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Town" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="County" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PostCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Project" Relationship="TimeKeeperModel.FK_ProjectOwner_Project" FromRole="ProjectOwner" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Time">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Project_Id" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeStart" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TimeEnd" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Project" Relationship="TimeKeeperModel.FK_Time_Project" FromRole="Time" ToRole="Project" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsInvoiced" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_ProjectOwner_Project">
+    <End Type="TimeKeeperModel.Project" Role="Project" Multiplicity="1" />
+    <End Type="TimeKeeperModel.ProjectOwner" Role="ProjectOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectOwner">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Time_Project">
+    <End Type="TimeKeeperModel.Project" Role="Project" Multiplicity="1" />
+    <End Type="TimeKeeperModel.Time" Role="Time" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Time">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

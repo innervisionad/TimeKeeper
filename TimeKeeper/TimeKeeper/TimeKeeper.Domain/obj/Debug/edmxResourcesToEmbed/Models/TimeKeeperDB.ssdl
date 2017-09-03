@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TimeKeeperModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectName" Type="varchar(max)" />
+    <Property Name="ProjectDescription" Type="varchar(max)" Nullable="false" />
+    <Property Name="Invoiced" Type="bit" />
+  </EntityType>
+  <EntityType Name="ProjectOwner">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar(max)" Nullable="false" />
+    <Property Name="AddressLine1" Type="varchar(max)" />
+    <Property Name="AddressLine2" Type="varchar(max)" />
+    <Property Name="Town" Type="varchar(max)" />
+    <Property Name="County" Type="varchar(max)" />
+    <Property Name="PostCode" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Time">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Id" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="TimeStart" Type="datetime" Nullable="false" />
+    <Property Name="TimeEnd" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="IsInvoiced" Type="bit" />
+  </EntityType>
+  <Association Name="FK_ProjectOwner_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="ProjectOwner" Type="Self.ProjectOwner" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectOwner">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Time_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Time" Type="Self.Time" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Time">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TimeKeeperModelStoreContainer">
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProjectOwner" EntityType="Self.ProjectOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Time" EntityType="Self.Time" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ProjectOwner_Project" Association="Self.FK_ProjectOwner_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="ProjectOwner" EntitySet="ProjectOwner" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Time_Project" Association="Self.FK_Time_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Time" EntitySet="Time" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

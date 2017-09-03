@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TimeKeeperModelStoreContainer" CdmEntityContainer="TimeKeeperEntities">
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="TimeKeeperModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="Invoiced" ColumnName="Invoiced" />
+          <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectOwners">
+      <EntityTypeMapping TypeName="TimeKeeperModel.ProjectOwner">
+        <MappingFragment StoreEntitySet="ProjectOwner">
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="County" ColumnName="County" />
+          <ScalarProperty Name="Town" ColumnName="Town" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Times">
+      <EntityTypeMapping TypeName="TimeKeeperModel.Time">
+        <MappingFragment StoreEntitySet="Time">
+          <ScalarProperty Name="IsInvoiced" ColumnName="IsInvoiced" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+          <ScalarProperty Name="TimeStart" ColumnName="TimeStart" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Project_Id" ColumnName="Project_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,140 @@
+﻿<div class="container-fluid">
+    <div class="banner" ng-show="showMessage">
+        <p id="message">{{message}}</p>
+    </div>
+    <div class="row">
+     <div class="col-sm-4">
+         <div class="well">
+             <!--Project information-->
+             <div class="row">
+                 <button class="btn btn-success pull-left" ng-click="setProjectDisable()">Edit</button>
+                 <button class="center-block btn btn-info pull-left" ng-show="!projectDisabled" ng-click="updateProject(project)">Update Project</button>
+             </div>
+           
+             <h3 class="text-center">Project</h3>
+             <form class="project-form form-group form-group-sm">
+                 <label>Project Name: </label><input class="form-control" type="text" ng-disabled="projectDisabled" value="{{project.projectName}}" ng-model="project.projectName" />
+                 <br />
+                 <label>Project Description: </label><input class="form-control" type="text" ng-disabled="projectDisabled" value="{{project.projectDescription}}" ng-model="project.projectDescription" />
+                 <br />
+                 <label>Invoiced ? </label><input ng-disabled="projectDisabled" type="checkbox" value="{{project.invoiced}}" ng-model="project.invoiced" />
+             </form>
+           
+         </div>
+         <div class="well">
+             <!-- Project Owner Information-->
+             <div class="row">
+                 <button class="btn btn-success pull-left" ng-click="setProjectOwnerdisable()">Edit</button>
+                 <button class="btn btn-info pull-left" ng-show="!ownerDisabled" ng-click="updateProjectOwner(project.projectOwners[0])">Update Project Owner</button> 
+             </div>
+             <div class="row">
+                 <h3 class="text-center">Project Owner</h3>
+                 <div class="col-sm-6">
+                     <form class="owner-form-left form-group form-group-sm">
+                         <label>Name: </label><input class="form-control" ng-disabled="ownerDisabled" type="text" value="{{project.projectOwners[0].name}}" ng-model="project.projectOwners[0].name" />
+                         <br />
+                         <label>Contact Number: </label><input class="form-control" ng-disabled="ownerDisabled" type="text" value="{{project.projectOwners[0].phoneNumber}}" ng-model="project.projectOwners[0].phoneNumber" />
+                     </form>
+                 </div>
+                 <div class="col-sm-6">
+                     <form class="form-group form-group-sm">
+                         <h4>Address: </h4>
+                         <label>Address Line 1: </label><input class="form-control" ng-disabled="ownerDisabled" type="text" value="{{project.projectOwners[0].addressLine1}}" ng-model="project.projectOwners[0].addressLine1" />
+                         <br />
+                         <label>Address Line 2: </label><input class="form-control" ng-disabled="ownerDisabled" type="text" value="{{project.projectOwners[0].addressLine2}}" ng-model="project.projectOwners[0].addressLine2" />
+                         <br />
+                         <label>Town: </label><input class="form-control" type="text" ng-disabled="ownerDisabled" value="{{project.projectOwners[0].town}}" ng-model="project.projectOwners[0].town" />
+                         <br />
+                         <label>County: </label><input class="form-control" type="text" ng-disabled="ownerDisabled" value="{{project.projectOwners[0].county}}" ng-model="project.projectOwners[0].county" />
+                         <br />
+                         <label>Postcode: </label><input class="form-control" type="text" ng-disabled="ownerDisabled" value="{{project.projectOwners[0].postCode}}" ng-model="project.projectOwners[0].postCode" />
+                     </form>
+                 </div>
+             </div>
+         </div>
+     </div>
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn btn-sm btn-primary pull-right" id="addNewTimeBtn" ng-click="showModal()">Add New Record&nbsp;<i class="fa fa-plus"></i></button>
+                    <h3>Times</h3>
+                </div>
+                <div class="panel-body">
+                    <table id="times-list" class="table table-hover table-striped table-bordered table-responsive table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Hours</th>
+                                <th>Invoiced</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="time in times | orderBy: '-date'">
+                                <td class="text-center">{{time.date | date:'dd MMM yyyy'}}</td>
+                                <td>{{time.description}}</td>
+                                <td class="text-center">{{time.timeStart | date: 'H:mm'}}</td>
+                                <td class="text-center">{{time.timeEnd | date: 'H:mm'}}</td>
+                                <td class="text-center">{{time.hoursSpent}}</td>
+                                <td class="text-center"><input type="checkbox" value="{{time.isInvoiced}}" ng-model="time.isInvoiced" ng-click="updateTime(time)" /></td>
+                                <td class="text-center"><button class="btn btn-xs btn-danger" ng-click="deleteTime(time)"><i class="fa fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <p id="total-records" ng-show="times.length > 0">Total Records: {{times.length}}</p>
+                    <p id="total-records" ng-show="times.length == null">Total Records: 0</p>
+                    <p class="total-hours text-right">Total Hours: {{totalHours}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addNewTimeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" ng-click="closeModal()">x</span>
+            <h3 class="text-center">Add New Time</h3>
+        </div>
+        <div class="modal-body">
+            <p class="text-center">Please enter the time you started working and the time you finished working.</p>
+            <hr />
+            <form>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <label for="timeStart">Start Time: </label>
+                        <input class="form-control" ng-model="newTime.timeStart"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               placeholder="Enter start time here..."
+                               moment-picker="newTime.timeStart"
+                               format="DD-MMM-YYYY HH:mm" />                     
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <label for="timeEnd">Finish time: </label>
+                        <input class="form-control" ng-model="newTime.timeEnd"
+                               ng-model-options="{ updateOn: 'blur' }"
+                               placeholder="Enter start time here..."
+                               moment-picker="newTime.timeEnd"
+                               format="DD-MMM-YYYY HH:mm" />  
+                    </div>
+                </div>
+                <div class="row">                
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <label for="Description">Description: </label><br />
+                    <input type="text" class="form-control" ng-model="newTime.description" />         
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="center-block btn btn-primary" ng-click="addTime(newTime)" ng-disabled="newTime.timeStart == null || newTime.timeEnd == null">Add New Time</button>
+        </div>
+    </div>
+</div>

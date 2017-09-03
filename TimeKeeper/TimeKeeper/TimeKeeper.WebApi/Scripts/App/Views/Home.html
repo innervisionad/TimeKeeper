@@ -1,0 +1,65 @@
+﻿<div class="container-fluid">
+   <h1>TimeKeeper</h1>
+    <hr />
+    <div class="banner" ng-show="showMessage">
+        <p id="message">{{message}}</p>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-1 col-sm-10">
+            <p>Welcome to TimeKeeper. Here is your list of current projects.</p>
+            <br />
+            <button class="btn btn-primary pull-right" id="addJobButton" ng-click="showModal()">New Project <i class="fa fa-plus"></i></button>
+            <table id="project-list" class="table table-hover table-striped table-bordered table-responsive table-condensed">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Project Name</th>
+                        <th>Project Description</th>
+                        <th>Invoiced?</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in projects">
+                       <td>{{p.id}}</td>
+                        <td>{{p.projectName}}</td>
+                        <td>{{p.projectDescription}}</td>
+                        <td>{{p.invoiced}}</td>
+                        <td>
+                            <a href="#/Project/{{p.id}}" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i></a>
+                            <button ng-click="deleteProject(p.id)" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="addNewJobModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" ng-click="closeModal()">x</span>
+            <h3 class="text-center">Add New Project</h3>
+        </div>
+        <div class="modal-body">
+            <p class="text-center">Please fill in a name and description to create a new project.</p>
+            <hr />
+            <form>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <label for="projectName">Project Name: </label><input class="form-control form-inline" type="text" ng-model="newProject.projectName" />
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <label for="projectDescription">Project Description: </label><textarea cols="3" class="form-control form-inline" ng-model="newProject.projectDescription"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="center-block btn btn-primary" ng-click="addNewProject(newProject)" ng-disabled="newProject.projectName == null || newProject.projectName == null">Add New Project</button>
+        </div>
+    </div>
+</div>
